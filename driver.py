@@ -5,5 +5,5 @@ class Driver:
         self.total_points = 0;
     
     def add_Points(self, points):
-        self.total_points += points
+        self.total_points += points 
         
