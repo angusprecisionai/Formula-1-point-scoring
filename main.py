@@ -1,6 +1,7 @@
 from drivers import *
 from point_system import *
 from race_results import all_races
+from team_rank import *
 
 for race in all_races:
     fastest_lap_driver = driverFromDriverNumber(race.fastest_lap_winner)
@@ -27,3 +28,20 @@ headers = ["Driver", "Points", "Team"]
 print(f"{headers[0]:<10} {headers[1]:<5} {headers[2]:<15}")
 for driver in sorted_drivers:
     print(f"{nameFromDriverNo(driver.driverNo):<10} {str(driver.total_points):<5} {driver.team:<15}")
+    
+print()
+
+team_standings = []
+
+for team in Team:
+    team_drivers = filter(lambda d: d.team == team, sorted_drivers)
+    team_points = 0
+    for driver in team_drivers:
+        team_points += driver.total_points
+    team_standings.append(TeamRank(team, team_points))
+    
+sorted_teams = sorted(team_standings, key=lambda team: team.points, reverse=True)
+
+for team in sorted_teams:
+    print(str(team.team) + " " + str(team.points))
+    
